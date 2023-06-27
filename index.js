@@ -37,13 +37,61 @@ mongoose.connect(
 	}
 )
 .then(() => {
-
+    scheduleJobForGf();
 });
+
+function scheduleJobForGf(){
+    schedule.scheduleJob('*/1 * * * *', function () {
+        const groupName = 'GirlsFab';
+        sendToTelegramChannel(groupName);
+    });
+}
+
+async function sendToTelegramChannel(groupName) {
+    try {
+        let randomProduct = await PRODUCTS.find({
+            source: groupName.toLowerCase()
+        }).limit(1);
+
+        if (randomProduct && randomProduct.length > 0) {
+            let retData = randomProduct[0];
+
+            var api = new telegram({
+                token: '6158204123:AAGoADPhxzS8wQGO8DeLWwZr6g8gpoQbSLo',
+                async_requests: true,
+                updates: {
+                    enabled: true,
+                    get_interval: 1000
+                }
+            });
+
+            api.sendPhoto({
+                chat_id: '@' + groupName, //'@GirlsFab',
+                caption: `${retData.title} ${retData.purchase_url}`,
+                photo: retData.image_url[retData.image_url.length - 1]
+            }).then(function (data) {
+                deleteAfterSent(retData.product_id);
+            });
+        }
+    }
+    catch (err) {}
+}
+
+async function deleteAfterSent(productId) {
+    const result = await PRODUCTS.findOneAndDelete({
+        product_id: productId
+    });
+    if (!result) {
+        //console.log('Product not found................');
+    } else {
+        //console.log('Product deleted successfully..............');
+    }
+}
 
 app.get('/', function(req, res){
     res.json({
         success: true,
-        message: 'App working successfully.................'
+        message: 'App working successfully.................12345'
     });
 });
 
