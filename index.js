@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const schedule = require('node-schedule');
 const mongoose = require('mongoose');
+const telegram = require('telegram-bot-api');
 
 const app = express();
 
@@ -82,16 +83,16 @@ async function deleteAfterSent(productId) {
         product_id: productId
     });
     if (!result) {
-        //console.log('Product not found................');
+         
     } else {
-        //console.log('Product deleted successfully..............');
+         
     }
 }
 
 app.get('/', function(req, res){
     res.json({
         success: true,
-        message: 'App working successfully.................12345'
+        message: 'App working successfully................'
     });
 });
 
