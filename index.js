@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors());
 
-const port = 1234 || process.env.port;
+const port = process.env.PORT || 5000;
 
 app.get('/', function(req, res){
     res.json({
