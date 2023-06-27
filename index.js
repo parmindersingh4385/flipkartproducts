@@ -8,6 +8,13 @@ app.use(cors());
 
 const port = 1234 || process.env.port;
 
+app.get('/', function(req, res){
+    res.json({
+        success: true,
+        message: 'Product saved successfully'
+    });
+});
+
 app.get('/:id', async function(req, res){
     const productId = req.params.id;
     try{
