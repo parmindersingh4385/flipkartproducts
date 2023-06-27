@@ -66,8 +66,8 @@ app.post('/:source/:id', async function(req, res){
                 }
             }); 
             const dataObj = response.data.productBaseInfoV1;
-            
-            var imagesArray =  Object.entries(imageUrls ).map((e) => ( e[1] ));
+
+            var imagesArray =  Object.entries(dataObj.imageUrls).map((e) => ( e[1] ));
 
             var newProduct = new PRODUCTS({
 				title: dataObj.title,
