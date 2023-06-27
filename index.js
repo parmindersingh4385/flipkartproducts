@@ -71,14 +71,14 @@ app.post('/:source/:id', async function(req, res){
                 data: dataObj
             });
 
-            //var imagesArray =  Object.entries(dataObj.images).map((e) => ( { [e[0]]: e[1] } ));
+            var imagesArray =  Object.entries(imageUrls ).map((e) => ( e[1] ));
 
-            /* var newProduct = new PRODUCTS({
+            var newProduct = new PRODUCTS({
 				title: dataObj.title,
 				product_id: productId,
 				description: dataObj.productDescription,
 				created_date: new Date().toISOString(),
-				//image_url: imagesArray,
+				image_url: imagesArray,
 				//brand_url: dataObj.brand_url,
 				purchase_url: dataObj.productUrl,
 				price: dataObj?.flipkartSpecialPrice?.amount || dataObj?.flipkartSellingPrice?.amount,
@@ -98,7 +98,7 @@ app.post('/:source/:id', async function(req, res){
 					success: true,
 					data: retData
 				});
-			} */
+			}
 
         }
     }
