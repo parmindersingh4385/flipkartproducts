@@ -90,7 +90,7 @@ async function deleteAfterSent(productId) {
 app.get('/', function (req, res) {
 	res.json({
 		success: true,
-		message: 'App working successfully................12345ss'
+		message: 'App working successfully................1'
 	});
 });
 
