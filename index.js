@@ -94,17 +94,15 @@ app.get('/', function (req, res) {
 	});
 });
 
-app.get('/products', function (req, res) {
-	res.status(200).json({
-		success: true,
-		total_count: 
-	});
+app.get('/products', async function (req, res) {
 	try {
 		const productsData = await PRODUCTS.find({});
-		res.send({
-			success: true,
-			total: productsData.length
-		});
+		if(productsData){
+			res.status(200).json({
+				success: true,
+				total: productsData.length
+			});
+		}
 	} catch (err) {
 		res.status(500).send(err);
 	}
