@@ -88,7 +88,7 @@ async function deleteAfterSent(productId) {
 }
 
 app.get('/', function (req, res) {
-	res.json({
+	res.status(200).json({
 		success: true,
 		message: 'App working successfully................1'
 	});
@@ -101,7 +101,7 @@ app.post('/:source/:id', async function (req, res) {
 	try {
 		const result = await PRODUCTS.find({ product_id: productId });
 		if (result.length > 0) {
-			res.json({
+			res.status(200).json({
 				success: true,
 				message: 'Product already exists'
 			});
@@ -139,20 +139,20 @@ app.post('/:source/:id', async function (req, res) {
 
 			const result = await PRODUCTS.find({ product_id: productId });
 			if (result.length > 0) {
-				res.json({
+				res.status(200).json({
 					success: true,
 					message: 'Product already exists'
 				});
 			} else {
 				var retData = await newProduct.save();
-				res.json({
+				res.status(200).json({
 					success: true,
 					data: retData
 				});
 			}
 		}
 	} catch (err) {
-		res.json({
+		res.status(200).json({
 			success: false,
 			message: err.message
 		});
@@ -171,12 +171,12 @@ app.post('/:source/:id', async function (req, res) {
 		);
 		const dataObj = response.data.productBaseInfoV1;
 
-		res.json({
+		res.status(200).json({
 			success: true,
 			data: dataObj
 		});
 	} catch (err) {
-		res.json({
+		res.status(200).json({
 			success: false,
 			message: err.message
 		});
