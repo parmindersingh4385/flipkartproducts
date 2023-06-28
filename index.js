@@ -90,8 +90,24 @@ async function deleteAfterSent(productId) {
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................TEST'
+		message: 'App working successfully................'
 	});
+});
+
+app.get('/products', function (req, res) {
+	res.status(200).json({
+		success: true,
+		total_count: 
+	});
+	try {
+		const productsData = await PRODUCTS.find({});
+		res.send({
+			success: true,
+			total: productsData.length
+		});
+	} catch (err) {
+		res.status(500).send(err);
+	}
 });
 
 app.post('/:source/:id', async function (req, res) {
