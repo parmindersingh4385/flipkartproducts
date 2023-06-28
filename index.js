@@ -7,6 +7,10 @@ const schedule = require('node-schedule');
 const mongoose = require('mongoose');
 const telegram = require('telegram-bot-api');
 
+const { Client, RemoteAuth, MessageMedia } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
+const { MongoStore } = require('wwebjs-mongo');
+
 const app = express();
 
 app.use(cors());
@@ -18,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................1'
+		message: 'App working successfully................12345'
 	});
 });
 
@@ -37,26 +41,15 @@ const PRODUCTS = mongoose.model('tbl_products', {
 });
 
 // Load the session data
-mongoose
-	.connect(
-		'mongodb+srv://parminder:9988641591%40ptk@cluster0-ix992.mongodb.net/db_products?retryWrites=true&w=majority',
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		}
-	)
-	.then(() => {
-		scheduleJobForGf();
-	});
 
-function scheduleJobForGf() {
-	schedule.scheduleJob('*/1 * * * *', function () {
-		const groupName = 'GirlsFab';
-		sendToTelegramChannel(groupName);
-	});
-}
+//function scheduleJobForGf() {
+//schedule.scheduleJob('*/1 * * * *', function () {
+//const groupName = 'GirlsFab';
+//sendToTelegramChannel(groupName);
+//});
+//}
 
-async function sendToTelegramChannel(groupName) {
+/* async function sendToTelegramChannel(groupName) {
 	try {
 		let randomProduct = await PRODUCTS.find({
 			source: groupName.toLowerCase()
@@ -83,16 +76,16 @@ async function sendToTelegramChannel(groupName) {
 			});
 		}
 	} catch (err) {}
-}
+} */
 
-async function deleteAfterSent(productId) {
+/* async function deleteAfterSent(productId) {
 	const result = await PRODUCTS.findOneAndDelete({
 		product_id: productId
 	});
 	if (!result) {
 	} else {
 	}
-}
+} */
 
 app.get('/products', async function (req, res) {
 	try {
