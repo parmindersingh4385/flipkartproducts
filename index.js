@@ -90,91 +90,71 @@ async function deleteAfterSent(productId) {
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................123'
+		message: 'App working successfully................TEST'
 	});
 });
 
 app.post('/:source/:id', async function (req, res) {
+	console.log('qqqqqqqqqqqqqqq');
 	const productId = req.params.id,
 		source = req.params.source;
 
 	try {
 		const result = await PRODUCTS.find({ product_id: productId });
+		console.log(result);
 		if (result.length > 0) {
 			res.status(200).json({
 				success: true,
 				message: 'Product already exists'
 			});
 		} else {
-			const response = await axios.get(
-				'https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=' +
-					productId,
-				{
-					headers: {
-						'Fk-Affiliate-Id': 'singh1par',
-						'Fk-Affiliate-Token': '1d5f2616c8c644f2806fe8da0c40946e'
-					}
-				}
-			);
-			const dataObj = response.data.productBaseInfoV1;
 
-			var imagesArray = Object.entries(dataObj.imageUrls).map(
-				(e) => e[1]
-			);
-
-			var newProduct = new PRODUCTS({
-				title: dataObj.title,
-				product_id: productId,
-				description: dataObj.productDescription,
-				created_date: new Date().toISOString(),
-				image_url: imagesArray,
-				//brand_url: dataObj.brand_url,
-				purchase_url: dataObj.productUrl,
-				price:
-					dataObj?.flipkartSpecialPrice?.amount ||
-					dataObj?.flipkartSellingPrice?.amount,
-				source: source,
-				is_active: dataObj.inStock
-			});
-
-			const result = await PRODUCTS.find({ product_id: productId });
-			if (result.length > 0) {
-				res.status(200).json({
-					success: true,
-					message: 'Product already exists'
-				});
-			} else {
-				var retData = await newProduct.save();
-				res.status(200).json({
-					success: true,
-					data: retData
-				});
-			}
-		}
-	} catch (err) {
-		res.status(200).json({
-			success: false,
-			message: err.message
-		});
-	}
-
-	try {
-		const response = await axios.get(
-			'https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=' +
-				productId,
-			{
+			const config = {
 				headers: {
 					'Fk-Affiliate-Id': 'singh1par',
 					'Fk-Affiliate-Token': '1d5f2616c8c644f2806fe8da0c40946e'
 				}
-			}
-		);
-		const dataObj = response.data.productBaseInfoV1;
+			};
 
-		res.status(200).json({
-			success: true,
-			data: dataObj
-		});
+			const response = await axios.get('https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=' + productId, config);
+ 
+			if(response.data){
+				const dataObj = response.data.productBaseInfoV1;
+
+				var imagesArray = Object.entries(dataObj.imageUrls).map(
+					(e) => e[1]
+				);
+
+				var newProduct = new PRODUCTS({
+					title: dataObj.title,
+					product_id: productId,
+					description: dataObj.productDescription,
+					created_date: new Date().toISOString(),
+					image_url: imagesArray,
+					//brand_url: dataObj.brand_url,
+					purchase_url: dataObj.productUrl,
+					price:
+						dataObj?.flipkartSpecialPrice?.amount ||
+						dataObj?.flipkartSellingPrice?.amount,
+					source: source,
+					is_active: dataObj.inStock
+				});
+
+				const result = await PRODUCTS.find({ product_id: productId });
+				if (result.length > 0) {
+					res.status(200).json({
+						success: true,
+						message: 'Product already exists'
+					});
+				} else {
+					var retData = await newProduct.save();
+					res.status(200).json({
+						success: true,
+						data: retData
+					});
+				}
+			}
+		}
 	} catch (err) {
 		res.status(200).json({
 			success: false,
