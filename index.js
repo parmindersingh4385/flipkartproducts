@@ -15,6 +15,13 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
 
+app.get('/', function (req, res) {
+	res.status(200).json({
+		success: true,
+		message: 'App working successfully................1'
+	});
+});
+
 //products model
 const PRODUCTS = mongoose.model('tbl_products', {
 	title: String,
@@ -87,17 +94,10 @@ async function deleteAfterSent(productId) {
 	}
 }
 
-app.get('/', function (req, res) {
-	res.status(200).json({
-		success: true,
-		message: 'App working successfully................'
-	});
-});
-
 app.get('/products', async function (req, res) {
 	try {
 		const productsData = await PRODUCTS.find({});
-		if(productsData){
+		if (productsData) {
 			res.status(200).json({
 				success: true,
 				total: productsData.length
@@ -122,7 +122,6 @@ app.post('/:source/:id', async function (req, res) {
 				message: 'Product already exists'
 			});
 		} else {
-
 			const config = {
 				headers: {
 					'Fk-Affiliate-Id': 'singh1par',
@@ -130,9 +129,13 @@ app.post('/:source/:id', async function (req, res) {
 				}
 			};
 
-			const response = await axios.get('https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=' + productId, config);
- 
-			if(response.data){
+			const response = await axios.get(
+				'https://affiliate-api.flipkart.net/affiliate/1.0/product.json?id=' +
+					productId,
+				config
+			);
+
+			if (response.data) {
 				const dataObj = response.data.productBaseInfoV1;
 
 				var imagesArray = Object.entries(dataObj.imageUrls).map(
