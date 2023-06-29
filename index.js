@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................QQQ'
+		message: 'App working successfully................WWW'
 	});
 });
 
@@ -115,9 +115,13 @@ mongoose
 					/* client.sendMessage(chatGroup.id._serialized, media, {
 						caption: 'HELLO WORLD............111'
 					}); */
+					//https://m.media-amazon.com/images/I/311g1blRyDL.jpg
+					/* const media = await MessageMedia.fromUrl(
+						retData.image_url[retData.image_url.length - 1]
+					); */
 
 					const media = await MessageMedia.fromUrl(
-						retData.image_url[retData.image_url.length - 1]
+						'https://m.media-amazon.com/images/I/311g1blRyDL.jpg'
 					);
 					client.sendMessage(chatGroup.id._serialized, media, {
 						caption: `${retData.title} ${retData.purchase_url}`
