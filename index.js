@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................WWW'
+		message: 'App working successfully................EEE'
 	});
 });
 
@@ -104,10 +104,10 @@ mongoose
 				if (randomProduct && randomProduct.length > 0) {
 					let retData = randomProduct[0];
 
-					/* client.sendMessage(
+					client.sendMessage(
 						chatGroup.id._serialized,
 						'HELLO WORLD......................'
-					); */
+					);
 
 					/* const media = await MessageMedia.fromUrl(
 						'https://rukminim1.flixcart.com/image/416/416/l05lx8w0/mobile/v/v/g/-original-imagbzv2h86ktnng.jpeg?q=70'
@@ -120,12 +120,12 @@ mongoose
 						retData.image_url[retData.image_url.length - 1]
 					); */
 
-					const media = await MessageMedia.fromUrl(
+					/* const media = await MessageMedia.fromUrl(
 						'https://m.media-amazon.com/images/I/311g1blRyDL.jpg'
 					);
 					client.sendMessage(chatGroup.id._serialized, media, {
 						caption: `${retData.title} ${retData.purchase_url}`
-					});
+					}); */
 
 					if (groupName == 'GirlsFab') {
 						var api = new telegram({
