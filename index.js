@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................123'
+		message: 'App working successfully................QQQ'
 	});
 });
 
@@ -39,6 +39,131 @@ const PRODUCTS = mongoose.model('tbl_products', {
 	source: String,
 	is_active: Boolean
 });
+
+mongoose
+	.connect(
+		'mongodb+srv://parminder:9988641591%40ptk@cluster0-ix992.mongodb.net/db_products?retryWrites=true&w=majority',
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}
+	)
+	.then(() => {
+		console.log('CONNECT.........................');
+		const store = new MongoStore({ mongoose: mongoose });
+		const client = new Client({
+			authStrategy: new RemoteAuth({
+				store: store,
+				backupSyncIntervalMs: 300000
+			}),
+			puppeteer: {
+				args: ['--no-sandbox', '--disable-setuid-sandbox'],
+				ignoreDefaultArgs: ['--disable-extensions']
+			}
+		});
+
+		client.on('qr', (qr) => {
+			qrcode.generate(qr, { small: true });
+		});
+
+		client.on('ready', () => {
+			console.log('ready.....................');
+			scheduleJobForGf();
+		});
+
+		function scheduleJobForGf() {
+			console.log('scheduleJobForGf...............');
+			schedule.scheduleJob('*/1 * * * *', function () {
+				console.log('1111.................');
+				const groupName = 'GirlsFab';
+
+				client.getChats().then(function (chats) {
+					const chatGroup = chats.find(
+						(chat) => chat.name == groupName
+					);
+
+					if (
+						chatGroup &&
+						chatGroup.groupMetadata &&
+						chatGroup.groupMetadata.id &&
+						chatGroup.groupMetadata.id._serialized
+					) {
+						sendImage(chatGroup, groupName);
+					}
+				});
+			});
+		}
+
+		async function sendImage(chatGroup, groupName) {
+			console.log('sendImage.............');
+			console.log(groupName);
+			try {
+				let randomProduct = await PRODUCTS.find({
+					source: groupName.toLowerCase()
+				}).limit(1);
+				if (randomProduct && randomProduct.length > 0) {
+					let retData = randomProduct[0];
+
+					/* client.sendMessage(
+						chatGroup.id._serialized,
+						'HELLO WORLD......................'
+					); */
+
+					/* const media = await MessageMedia.fromUrl(
+						'https://rukminim1.flixcart.com/image/416/416/l05lx8w0/mobile/v/v/g/-original-imagbzv2h86ktnng.jpeg?q=70'
+					); */
+					/* client.sendMessage(chatGroup.id._serialized, media, {
+						caption: 'HELLO WORLD............111'
+					}); */
+
+					const media = await MessageMedia.fromUrl(
+						retData.image_url[retData.image_url.length - 1]
+					);
+					client.sendMessage(chatGroup.id._serialized, media, {
+						caption: `${retData.title} ${retData.purchase_url}`
+					});
+
+					if (groupName == 'GirlsFab') {
+						var api = new telegram({
+							token: '6158204123:AAGoADPhxzS8wQGO8DeLWwZr6g8gpoQbSLo',
+							async_requests: true,
+							updates: {
+								enabled: true,
+								get_interval: 1000
+							}
+						});
+
+						api.sendPhoto({
+							chat_id: '@' + groupName, //'@GirlsFab',
+							caption: `${retData.title} ${retData.purchase_url}`,
+							photo: retData.image_url[0]
+						}).then(function (data) {
+							deleteAfterSent(retData.product_id);
+						});
+					} else {
+						deleteAfterSent(retData.product_id);
+					}
+				}
+			} catch (err) {}
+		}
+
+		async function deleteAfterSent(productId) {
+			const result = await PRODUCTS.findOneAndDelete({
+				product_id: productId
+			});
+			if (!result) {
+				//console.log('Product not found................');
+			} else {
+				//console.log('Product deleted successfully..............');
+			}
+		}
+
+		client.on('remote_session_saved', () => {
+			console.log('remote_session_saved....................1234567890');
+		});
+
+		client.initialize();
+	});
 
 // Load the session data
 /* mongoose
