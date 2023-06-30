@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................EEE'
+		message: 'App working successfully................AAA'
 	});
 });
 
@@ -97,6 +97,7 @@ mongoose
 		async function sendImage(chatGroup, groupName) {
 			console.log('sendImage.............');
 			console.log(groupName);
+			return false;
 			try {
 				let randomProduct = await PRODUCTS.find({
 					source: groupName.toLowerCase()
