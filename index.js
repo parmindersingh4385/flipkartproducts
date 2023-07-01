@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................AAA'
+		message: 'App working successfully................BBB'
 	});
 });
 
@@ -56,10 +56,10 @@ mongoose
 				store: store,
 				backupSyncIntervalMs: 300000
 			}),
-			/* puppeteer: { 
+			puppeteer: { 
 				args: ['--no-sandbox', '--disable-setuid-sandbox'],
 				ignoreDefaultArgs: ['--disable-extensions']
-			} */
+			}
 		});
 
 		client.on('qr', (qr) => {
