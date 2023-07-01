@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................111'
+		message: 'App working successfully................AAA'
 	});
 });
 
@@ -56,10 +56,10 @@ mongoose
 				store: store,
 				backupSyncIntervalMs: 300000
 			}),
-			puppeteer: {
+			/* puppeteer: { 
 				args: ['--no-sandbox', '--disable-setuid-sandbox'],
 				ignoreDefaultArgs: ['--disable-extensions']
-			}
+			} */
 		});
 
 		client.on('qr', (qr) => {
@@ -97,7 +97,7 @@ mongoose
 		async function sendImage(chatGroup, groupName) {
 			console.log('sendImage.............');
 			console.log(groupName);
-			return false;
+			
 			try {
 				let randomProduct = await PRODUCTS.find({
 					source: groupName.toLowerCase()
@@ -105,10 +105,10 @@ mongoose
 				if (randomProduct && randomProduct.length > 0) {
 					let retData = randomProduct[0];
 
-					client.sendMessage(
+					/* client.sendMessage(
 						chatGroup.id._serialized,
 						'HELLO WORLD......................'
-					);
+					); */
 
 					/* const media = await MessageMedia.fromUrl(
 						'https://rukminim1.flixcart.com/image/416/416/l05lx8w0/mobile/v/v/g/-original-imagbzv2h86ktnng.jpeg?q=70'
@@ -123,12 +123,22 @@ mongoose
 
 					/* const media = await MessageMedia.fromUrl(
 						'https://m.media-amazon.com/images/I/311g1blRyDL.jpg'
-					);
+					); */
+
+					/* const media = await MessageMedia.fromUrl(
+						'https://rukminim1.flixcart.com/image/416/416/kpwybgw0/bottle/w/r/i/500-vertex-steel-500-thermosteel-hot-or-cold-water-bottle-with-original-imag4fddnz7b9zmj.jpeg?q=70'
+					); */
+
+					console.log(retData.image_url);
+
+					var imageUrl = retData.image_url[0]; 
+					const media = await MessageMedia.fromUrl(imageUrl);
+
 					client.sendMessage(chatGroup.id._serialized, media, {
 						caption: `${retData.title} ${retData.purchase_url}`
-					}); */
+					});
 
-					if (groupName == 'GirlsFab') {
+					/* if (groupName == 'GirlsFab') {
 						var api = new telegram({
 							token: '6158204123:AAGoADPhxzS8wQGO8DeLWwZr6g8gpoQbSLo',
 							async_requests: true,
@@ -147,7 +157,7 @@ mongoose
 						});
 					} else {
 						deleteAfterSent(retData.product_id);
-					}
+					} */
 				}
 			} catch (err) {}
 		}
