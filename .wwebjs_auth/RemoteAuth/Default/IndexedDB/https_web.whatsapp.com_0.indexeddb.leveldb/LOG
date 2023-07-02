@@ -1,16 +1,16 @@
-2023/07/02-10:11:02.494 2bec Creating DB D:\Projects\flipkartproducts\.wwebjs_auth\RemoteAuth\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
-2023/07/02-10:11:02.510 2bec Reusing MANIFEST D:\Projects\flipkartproducts\.wwebjs_auth\RemoteAuth\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/07/02-10:11:02.709 2900 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
-2023/07/02-10:11:04.149 1834 Level-0 table #5: started
-2023/07/02-10:11:04.159 1834 Level-0 table #5: 25912 bytes OK
-2023/07/02-10:11:04.161 1834 Delete type=0 #3
-2023/07/02-10:11:04.161 1834 Manual compaction at level-0 from '\x00\x06\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x07\x00\x00\x00' @ 0 : 0; will stop at (end)
-2023/07/02-10:13:01.192 1834 Level-0 table #7: started
-2023/07/02-10:13:01.258 1834 Level-0 table #7: 1216315 bytes OK
-2023/07/02-10:13:01.261 1834 Delete type=0 #4
-2023/07/02-10:14:00.734 65c Compacting 1@1 + 1@2 files
-2023/07/02-10:14:00.919 65c Generated table #8@1: 10606 keys, 456009 bytes
-2023/07/02-10:14:00.919 65c Compacted 1@1 + 1@2 files => 456009 bytes
-2023/07/02-10:14:00.921 65c compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/07/02-10:14:00.922 65c Delete type=2 #5
-2023/07/02-10:14:00.922 65c Delete type=2 #7
+2023/07/02-10:23:59.647 c8c Creating DB D:\Projects\flipkartproducts\.wwebjs_auth\RemoteAuth\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2023/07/02-10:23:59.652 c8c Reusing MANIFEST D:\Projects\flipkartproducts\.wwebjs_auth\RemoteAuth\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/07/02-10:23:59.884 2778 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/07/02-10:24:01.782 2e00 Level-0 table #5: started
+2023/07/02-10:24:01.789 2e00 Level-0 table #5: 26196 bytes OK
+2023/07/02-10:24:01.795 2e00 Delete type=0 #3
+2023/07/02-10:24:01.878 2e00 Manual compaction at level-0 from '\x00\x06\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x07\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/07/02-10:25:12.328 12ec Level-0 table #7: started
+2023/07/02-10:25:12.397 12ec Level-0 table #7: 1219818 bytes OK
+2023/07/02-10:25:12.401 12ec Delete type=0 #4
+2023/07/02-10:25:32.198 12ec Compacting 1@1 + 1@2 files
+2023/07/02-10:25:32.304 12ec Generated table #8@1: 10760 keys, 457472 bytes
+2023/07/02-10:25:32.304 12ec Compacted 1@1 + 1@2 files => 457472 bytes
+2023/07/02-10:25:32.305 12ec compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/07/02-10:25:32.305 12ec Delete type=2 #5
+2023/07/02-10:25:32.305 12ec Delete type=2 #7
