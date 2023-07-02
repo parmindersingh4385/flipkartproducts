@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 app.get('/', function (req, res) {
 	res.status(200).json({
 		success: true,
-		message: 'App working successfully................111'
+		message: 'App working successfully................222'
 	});
 });
 
@@ -131,7 +131,7 @@ mongoose
 
 					console.log(retData.image_url);
 
-					var imageUrl = retData.image_url[retData.image_url.length - 1]; 
+					var imageUrl = retData.image_url[retData.image_url.length - 2]; 
 					const media = await MessageMedia.fromUrl(imageUrl);
 
 					client.sendMessage(chatGroup.id._serialized, media, {
